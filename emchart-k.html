@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta charset="UTF-8">
+    <title>web图表</title>
+    <!-- <link rel="shortcut icon" type="image/ico" href="http://www.eastmoney.com/favicon.ico" /> -->
+    <link rel="stylesheet" href="./emcharts.css">
+    <script src="./jquery.js"></script>
+</head>
+
+<body>
+    <div class="main-wrap">
+        <div class="main">
+            <div class="header">
+                <div class="tabs">
+                    <ul class="tab-list" id="tab_list">
+                        <li class="tab-item choose" id="four">分时</li>
+                        <li class="tab-item" id="m5k">5分钟</li>
+                        <!-- <li class="tab-item" id="m15k">15分钟</li>
+                        <li class="tab-item" id="m30k">30分钟</li>
+                        <li class="tab-item" id="m60k">60分钟</li> -->
+                        <li class="tab-item" id="m15k">15分钟</li>
+                        <li class="tab-item" id="m30k">30分钟</li>
+                        <li class="tab-item" id="m60k">60分钟</li>
+                    </ul>
+                    <div class="more">更多</div>
+                </div>
+                <ul class="more-item">
+                    <li class="tab-item" id="one">日K</li>
+                    <li class="tab-item" id="two">周K</li>
+                    <li class="tab-item" id="three">月K</li>
+                </ul>
+            </div>
+            <div class="content">
+
+                <div class="scale">
+                    <div class="scale-plus" id="scale-plus">+</div>
+                    <div class="scale-minus" id="scale-minus">-</div>
+                    <select class="beforeBackRight" id="beforeBackRight" style="display: none;">
+                        <option value="">不复权</option>
+                        <option value="before" selected>前复权</option>
+                        <option value="back">后复权</option>
+                    </select>
+                </div>
+                <div id="emchart" class="emchart">
+                    <div id="emchart-7" class="em-tab">
+                    </div>
+                    <div id="emchart-0" class="em-tab">
+                    </div>
+                    <div id="emchart-1" class="em-tab">
+                    </div>
+                    <div id="emchart-2" class="em-tab">
+                    </div>
+                    <div id="emchart-3" class="em-tab">
+                    </div>
+                    <div id="emchart-4" class="em-tab">
+                    </div>
+                    <div id="emchart-5" class="em-tab">
+                    </div>
+                    <div id="emchart-6" class="em-tab">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./emcharts.js"></script>
+    <script type="text/javascript" defer>
+        //var code = "6011772";
+        var code = window.location.search.split('=')[1];
+        var current, k7, k0, k1, k2, k3, k4, k5, k6;
+
+        window.onload = function() {
+            current = k0 = new EmchartsMobileTime({
+                dpr: 2,
+                code: code,
+                type: "r",
+                container: "emchart-7",
+                "width": document.body.clientWidth,
+                "height": 340
+            });
+            document.getElementsByClassName('scale')[0].style.display = "none"
+            var select = document.getElementById("beforeBackRight");
+            var options = select.children;
+            if (current.options.authorityType == "不复权") {
+                options[0].selected = true;
+                k0.options.beforeBackRight = "";
+            } else if (current.options.authorityType == "前复权") {
+                options[1].selected = true;
+                k0.options.beforeBackRight = "before";
+            } else if (current.options.authorityType == "后复权") {
+                options[2].selected = true;
+                k0.options.beforeBackRight = "back";
+            } else {
+                options[1].selected = true;
+                k0.options.beforeBackRight = "before";
+            }
+
+            window.beforeBackRight = k0.options.beforeBackRight;
+
+            current.draw();
+            $('.more').on('click', function() {
+                if ($('.more-item').css('display') == 'block') {
+                    $('.more-item').css('display', 'none');
+                } else {
+                    $('.more-item').css('display', 'block');
+                }
+            })
+            $('#one').on('click', function() {
+                $('.more-item').hide();
+            })
+            $('#two').on('click', function() {
+                $('.more-item').hide();
+            })
+            $('#three').on('click', function() {
+                $('.more-item').hide();
+            })
+            $('.more-item .tab-item').on('click', function() {
+                $('.tab-item').removeClass('choose');
+                $(this).addClass('choose1').siblings().removeClass('choose1');
+            })
+            $('.tab-list .tab-item').on('click', function() {
+                $('.tab-item').removeClass('choose1');
+                $(this).addClass('choose').siblings().removeClass('choose');
+                $('.more-item').css('display', 'none');
+            })
+            $('.tab-item').on('click', function() {
+                $('.scale').css('display', 'inline');
+                var params = {
+                    dpr: 2,
+                    code: code,
+                    type: 'k',
+                    container: "emchart-0",
+                    "width": document.body.clientWidth,
+                    "height": 400
+                };
+                let id = $(this).attr('id');
+                switch (id) {
+                    case "four":
+                        params.type = "r";
+                        params.height = 340;
+                        params.container = "emchart-7";
+                        current = k7 = tab(k7, params);
+                        $('.scale').css('display', 'none');
+                        break;
+                    case "one":
+                        params.type = "k";
+                        params.container = "emchart-0";
+                        current = k0 = tab(k0, params);
+                        break;
+                    case "two":
+                        params.type = "wk";
+                        params.container = "emchart-1";
+                        current = k1 = tab(k1, params);
+                        break;
+                    case "three":
+                        params.type = "mk";
+                        params.container = "emchart-2";
+                        current = k2 = tab(k2, params);
+                        break;
+
+                    case "m5k":
+                        params.type = "m5k";
+                        params.container = "emchart-3";
+                        current = k3 = tab(k3, params);
+                        break;
+                    case "m15k":
+                        params.type = "m15k";
+                        params.container = "emchart-4";
+                        current = k4 = tab(k4, params);
+                        break;
+                    case "m30k":
+                        params.type = "m30k";
+                        params.container = "emchart-5";
+                        current = k5 = tab(k5, params);
+                        break;
+                    case "m60k":
+                        params.type = "m60k";
+                        params.container = "emchart-6";
+                        current = k6 = tab(k6, params);
+                        break;
+                }
+
+                function tab(k, params) {
+                    console.log('tab-k', params)
+                    var ems = document.getElementById("emchart").children;
+                    [].forEach.call(ems, function(em) {
+                        em.style.display = "none";
+                    });
+                    document.getElementById(params.container).style.display = "block";
+                    // if (!k) {
+                    if (params.type == 'r') {
+                        current = k = new EmchartsMobileTime(params)
+                    } else {
+                        current = k = new EmchartsWebK(params)
+                    }
+
+                    current.options.beforeBackRight = document.getElementById("beforeBackRight").value;
+                    current.draw();
+                    return k;
+                }
+
+            })
+
+
+
+
+            addEvent(document.getElementById("scale-plus"), "click", function() {
+                current.scalePlus();
+            });
+
+            addEvent(document.getElementById("scale-minus"), "click", function() {
+                current.scaleMinus();
+            });
+
+            addEvent(document.getElementById("beforeBackRight"), "change", function(event) {
+                var v = event.target.value;
+
+                window.beforeBackRight = v;
+                current.options.beforeBackRight = v;
+
+                if (v == "before") {
+                    current.beforeBackRight(1);
+                } else if (v == "back") {
+                    current.beforeBackRight(2);
+                } else {
+                    current.beforeBackRight(0);
+                }
+
+            });
+
+            // addEvent(document.getElementById("search-btn"), "click", function() {
+            //     var temp = document.getElementById("stock-code").value;
+            //     if (temp == "请输入股票代码加市场号" || temp == "") {
+            //         alert("请输入股票代码加市场号");
+            //         return;
+            //     } else {
+            //         code = temp;
+            //     }
+            //     current.options.code = code;
+            //     current.draw();
+            // });
+
+        }
+
+
+        /**
+         * 兼容性的事件添加
+         * @param {[type]}   obj  对哪个元素添加
+         * @param {[type]}   type 事件类型
+         * @param {Function} fn   事件触发的处理函数
+         */
+        function addEvent(obj, type, fn) {
+            if (obj.attachEvent) {
+
+                obj['e' + type + fn] = fn;
+                obj[type + fn] = function() {
+                    obj['e' + type + fn](window.event);
+                }
+                obj.attachEvent('on' + type, obj[type + fn]);
+            } else
+                obj.addEventListener(type, fn, false);
+        }
+    </script>
+</body>
+
+</html>

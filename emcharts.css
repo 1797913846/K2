@@ -1,0 +1,170 @@
+body,
+form,
+ul,
+li,
+dl,
+dt,
+dd,
+p,
+table,
+tr,
+td,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+form {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a1a26;
+}
+
+.header .tool-bar {
+    background: -webkit-linear-gradient(top, #4d74ae, #2e5186);
+    Safari 5.1 - 6.0 background: -o-linear-gradient(bottom, #4d74ae, #2e5186);
+    Opera 11.1 - 12.0 background: -moz-linear-gradient(bottom, #4d74ae, #2e5186);
+    Firefox 3.6 - 15 background: linear-gradient(to bottom, #4d74ae, #2e5186);
+    标准的语法 background: #2e5186;
+    height: 70px;
+}
+
+.header .sepe {
+    height: 50px;
+    background-color: #d1e1f9;
+}
+
+.content {
+    background-color: #1a1a26;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+.content .emchart {
+    background-color: #1a1a26;
+}
+
+.tabs {
+    background-color: #1a1a26;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 15px;
+    width: 375px;
+    overflow: hidden;
+}
+
+.tabs .tab.current {
+    color: #2f5895;
+    border-bottom: 3px solid #2f5895;
+}
+
+.tab-list {
+    border-right: 0;
+    width: 84%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.tabs .more {
+    float: left;
+    width: 16%;
+    color: #fff;
+    padding: 2px 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.tab-item {
+    /* width: 12.5%;
+    float: left; */
+    list-style: none;
+    padding: 2px 0px;
+    font-size: 12px;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.more-item {
+    border: 1px solid rgba(199, 16, 72, 0.3);
+    width: 60px;
+    position: absolute;
+    right: 10px;
+    z-index: 100000;
+    background-color: #1a1a26;
+    top: 30px;
+    display: none;
+}
+
+.choose {
+    color: #FF3E5E;
+    list-style: none;
+    position: relative;
+}
+
+.choose1 {
+    color: #FF3E5E;
+    list-style: none;
+    position: relative;
+}
+
+.choose::after {
+    content: '—';
+    display: block;
+    width: 15px;
+    height: 3px;
+    border-radius: 1.5px;
+    background-color: #FF3E5E;
+    position: absolute;
+    left: 18%;
+    bottom: 0;
+}
+
+.scale {
+    position: absolute;
+    left: 313px;
+    top: 73px;
+    z-index: 101;
+    height: 25px;
+    line-height: 25px;
+    width: 60px;
+}
+
+.scale-plus,
+.scale-minus {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(204, 204, 204, 0.2);
+    font-size: 14px;
+    color: rgba(204, 204, 204, 0.2);
+    text-align: center;
+    line-height: 20px;
+    box-sizing: border-box;
+}
+
+.beforeBackRight {
+    /* height: 25px;
+			line-height: 25px; */
+}
+
+.main {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
